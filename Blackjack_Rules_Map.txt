@@ -1,0 +1,72 @@
+DEALINITIAL Card to Player.
+
+DEALINITIAL Card to Dealer.
+
+DEALINITIAL Card to Player.
+
+DEALINITIAL Card to Dealer.
+
+SUM PlayerTot. 
+
+SUM DealerTot.
+
+If PlayerTot is 21 && DealerTot is 21
+	CALLPUSH
+	Break
+
+ElsIf PlayerTot is 21 && DealerTot < 21
+	Go to DEALDEALER
+	Break
+
+ElsIf DealerTot is 21 && PlayerTot < 21
+	Go to DEAL(PLAYER)
+	Break
+
+Else ASKPLAYER Player STAY(PLAYER) or DEAL(PLAYER).
+
+
+If DEAL(PLAYER) one Card to Player.
+SUM PlayerTot
+If PlayerTot == 21 
+	BLACKJACK(PLAYER) and Go to DEAL(DEALER)
+	Break
+
+ElsIf PlayerTot is >21 
+
+	If PlayerTot includes Ace 
+	CHANGEACE to 1 and Go to ASKPLAYER
+	Break
+	Else PLAYERBUST.
+	Break
+
+Else ASKPLAYER2. 
+
+	If STAY
+	Go to DEAL(DEALER) to Dealer
+	Break
+	Else
+	Go to DEAL(PLAYER)
+	Break 
+
+DEAL(DEALER).
+Sum DealerTot
+If DealerTot is 21, BLACKJACK(DEALER).
+Break
+
+ElsIf DealerTot is >21, 
+
+	If DealerTot includes Ace CHANGEACE to 1.
+	Else CALLBUST.
+	Break
+ElsIf DealerTot < 17
+	DEAL(DEALER)
+	Break
+ElsIf DealerTot < 21 && DealerTot > PlayerTot
+	DEALERSTAY 
+
+CALLPUSH
+BLACKJACK(PLAYER) != BLACKJACK(DEALER)
+BLACKJACK(DEALER) != BLACKJACK(PLAYER)
+PLAYERSTAY is PlayerTot > DealerTot
+DEALERSTAY is DealerTot > PlayerTot
+PlayerTot == DealerTot

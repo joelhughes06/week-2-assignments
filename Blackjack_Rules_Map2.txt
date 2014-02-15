@@ -1,0 +1,84 @@
+DEALINITIAL(Player)
+
+DEALINITIAL(Dealer)
+
+DEALINITIAL(Player)
+
+DEALINITIAL(Dealer)
+
+SUM(PlayerTot) 
+
+SUM(DealerTot)
+
+If PlayerTot is 21 && DealerTot is 21
+	CALLPUSH
+	Break
+
+ElsIf PlayerTot is 21 && DealerTot < 21
+	Go to DEAL(DEALER)
+	Break
+
+ElsIf DealerTot is 21 && PlayerTot < 21
+	Go to DEAL(PLAYER)
+	Break
+
+Else ASKPLAYER
+
+ASKPLAYER 
+	STAY(PLAYER) or DEAL(PLAYER).
+
+
+If DEAL(PLAYER) 
+	DEAL(PLAYER)
+	SUM PlayerTot
+	If PlayerTot == 21 
+		BLACKJACK(PLAYER) and Go to DEAL(DEALER)
+		Break
+
+	ElsIf PlayerTot is >21 
+
+		If PlayerTot includes Ace 
+			CHANGEACE to 1 and Go to ASKPLAYER
+		Break
+		Else BUST(PLAYER)
+		Break	
+	Else ASKPLAYER
+	Break
+Else STAY(PLAYER)
+Break
+
+DEAL(DEALER).
+Sum DealerTot
+	If DealerTot is 21, BLACKJACK(DEALER).
+	Break
+
+	ElsIf DealerTot is >21 
+		If DealerTot includes Ace 
+			CHANGEACE to 1 and Go to DEAL(DEALER)
+		Else BUST(DEALER)
+		Break
+
+	ElsIf DealerTot < 17
+		DEAL(DEALER)
+	Break
+
+	ElsIf DealerTot < 21 && DealerTot > 16 && DealerTot > PlayerTot
+	STAY(DEALER) 
+	Break
+
+If CALLPUSH
+	Puts "Dealer and Player tie so it\'s a push. Play again sometime!"
+
+
+Elsif BLACKJACK(PLAYER) != BLACKJACK(DEALER)
+	Puts "Congratulations! You got BlackJack 21!"
+
+Elsif BLACKJACK(DEALER) != BLACKJACK(PLAYER)
+	Puts "Sorry, Dealer\'s BlackJack 21 beats your hand. Play again sometime!"
+
+Elsif STAY(PLAYER) || STAY(DEALER)
+
+	If PlayerTot > DealerTot
+		Puts "Congratulations! Your hand beats the Dealer\'s. You win!"
+	Elsif DealerTot > PlayerTot
+		Puts "Sorry, Dealer\'s BlackJack 21 beats your hand. Play again sometime!"
